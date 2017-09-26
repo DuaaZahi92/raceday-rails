@@ -1,18 +1,14 @@
-<<<<<<< HEAD
-# raceday-rails
-coursera rails app
-=======
 # Module 1, Summative Assignment: Integrating MongoDB Ruby Driver and Rails
 
-This assignment focuses on your ability to implement MongoDB Ruby Driver commands 
+This assignment focuses on your ability to implement MongoDB Ruby Driver commands
 within the context of a Rails application and scaffold. To do this -- you will
-implement an ActiveModel model class using MongoDB that should nearly 
-immediately work with a generated controller and view. This will not only 
+implement an ActiveModel model class using MongoDB that should nearly
+immediately work with a generated controller and view. This will not only
 test your knowledge of the specific MongoDB Ruby Driver commands but will also
 give you insight into the functionality provided by the Mongoid ORM you will
 use later in the course and how you can drop down to the raw MongoDB Driver API
-if the need ever arises in a full application. You will be given much of the 
-Rails portion of the assignment in detailed hints. You must fill in the missing 
+if the need ever arises in a full application. You will be given much of the
+Rails portion of the assignment in detailed hints. You must fill in the missing
 MongoDB Ruby Driver portions based on the lectures and other course materials.
 
 The overall goal of the assignment is to:
@@ -28,20 +24,20 @@ The functional goal of the assignment is to:
 
 ## Functional Requirements
 
-1. Add a connection from Rails to the MongoDB server using Mongoid. 
+1. Add a connection from Rails to the MongoDB server using Mongoid.
 You will:
   * include the necessary gems
   * configure server connection and database
 
-2. Manage Racers in the MongoDB `racers` collection and use a 
+2. Manage Racers in the MongoDB `racers` collection and use a
 a class called Racer to encapsulate access to MongoDB and the `racers`
 collection.
   * get a connection to the MongoDB server and default database
   * get the collection for our model type
   * ingest data into the collection
-  
 
-3. Use the `Racer` class as a Rails model class to encapsulate the 
+
+3. Use the `Racer` class as a Rails model class to encapsulate the
 properties tracked for a racer within MongoDB.
   * id - primary key within the database
   * number - their race bib number
@@ -59,16 +55,16 @@ This will include the following model commands
   * update - update the properties of the curren instance to the database collection
   * destroy - remove the racer from the database collection
 
-4. Create a scaffold for the `Racer` model class to view and 
+4. Create a scaffold for the `Racer` model class to view and
 modify racer information in the database collection.
 
 5. Add pagination support to the `Racer` index page.
 
 ## Getting Started
 
-1. Create a new Rails application called `raceday`. 
+1. Create a new Rails application called `raceday`.
 
-2. Download and extract the starter set of boostrap files for this assignment. 
+2. Download and extract the starter set of boostrap files for this assignment.
 
     ```shell
     |-- Gemfile
@@ -83,9 +79,9 @@ modify racer information in the database collection.
         `-- paginate_spec.rb
     ```
 
-    * Overwrite your existing Gemfile with the Gemfile from the bootstrap fileset. 
-    They should be nearly identical, but this is done to make sure the gems and 
-    versions you use in your solution can be processed by the automated Grader 
+    * Overwrite your existing Gemfile with the Gemfile from the bootstrap fileset.
+    They should be nearly identical, but this is done to make sure the gems and
+    versions you use in your solution can be processed by the automated Grader
     when you submit. Any submission should be tested with this version of the file.
 
         NOTE the Gemfile includes the following added to support testing:
@@ -100,7 +96,7 @@ modify racer information in the database collection.
         as well as a new definition for the following items:
 
         - `tzinfo-data` gem conditionally included on Windows platforms
-        - `mongoid` gem added to support getting connections to MongoDB server 
+        - `mongoid` gem added to support getting connections to MongoDB server
         - `will_paginate` added for implementing paging
 
             ```ruby
@@ -111,8 +107,8 @@ modify racer information in the database collection.
             ```
 
     * Add the `spec/*.rb` files provided with the bootstrap fileset to the
-    corresponding  `spec/` directory within your `raceday` application. 
-    These files contain tests that will help determine whether you have 
+    corresponding  `spec/` directory within your `raceday` application.
+    These files contain tests that will help determine whether you have
     completed the assignment.
 
 3. Run the `bundle` command to make sure all gems are available.
@@ -120,23 +116,23 @@ modify racer information in the database collection.
     ```shell
     $ bundle
     ```
-4. Run the rspec test(s) to receive feedback. `rspec` must be run from the root 
-directory of your application.  There are several test files provided for this 
-assignment. Many of those files are designed to test your code at specific points 
-as you proceed through the technical requirements of this assignment.  As such, 
-many tests will fail if executed after additional technical requirements have 
-been completed. Initially, majority of tests will (obviously) fail until 
+4. Run the rspec test(s) to receive feedback. `rspec` must be run from the root
+directory of your application.  There are several test files provided for this
+assignment. Many of those files are designed to test your code at specific points
+as you proceed through the technical requirements of this assignment.  As such,
+many tests will fail if executed after additional technical requirements have
+been completed. Initially, majority of tests will (obviously) fail until
 you complete the requirements necessary for them to pass.
 
     ```shell
-    $ rspec 
+    $ rspec
     ...
     (N) examples, 1 failure, (N) pending
     ```
 
     To focus test feedback on a specific step of the requirements, add the specific
-    file (path included) with the tests along with "-e rq##" to the rspec command 
-    line to only evaluate a specific requirement. Pad all step numbers to two 
+    file (path included) with the tests along with "-e rq##" to the rspec command
+    line to only evaluate a specific requirement. Pad all step numbers to two
     digits.
 
     ```shell
@@ -148,7 +144,7 @@ you complete the requirements necessary for them to pass.
 5. Start your MongoDB `mongod` process.
 
 
-6. Implement your solution to the technical requirements and use the rspec tests 
+6. Implement your solution to the technical requirements and use the rspec tests
 to help verify your completed solution.
 
 7. Submit your Rails app solution for grading.
@@ -158,14 +154,14 @@ to help verify your completed solution.
 ### Mongoid Database Connection
 
 In this section you will complete the installation of Mongoid into your application
-by generating a configuration file and wiring that configuration file into the 
+by generating a configuration file and wiring that configuration file into the
 Rails application so you can get connections to MongoDB. We will only use Mongoid
 for connections at this point. All commands to MongoDB will be through the MongoDB
 Ruby Driver.
 
 1. Start with the `raceday` application created in the `Getting Started` section.
 
-2. Generate a Mongoid configuration file and update to reference the same 
+2. Generate a Mongoid configuration file and update to reference the same
 MongoDB server instance and database as in the previous assignment.
 
     ```shell
@@ -173,7 +169,7 @@ MongoDB server instance and database as in the previous assignment.
     ```
 
     The generated defaults should be correct for what we will use. They
-    may be different from what you used in a previous assignment, but 
+    may be different from what you used in a previous assignment, but
     we are purposely going to keep them in a separate database from what
     was used in the other assignment.
 
@@ -195,13 +191,13 @@ MongoDB server instance and database as in the previous assignment.
       ...
     ```
 
-3. Add some Mongoid configuration to `config/application.rb`. This is used by stand-alone programs 
-like "rails console" to be able to load the Mongoid environment with fewer steps. This also 
-configures which ORM your scaffold commands use by default. Adding the mongoid gem had the 
-impact of making Mongoid the default ORM. The lines below show how we can set it back to ether 
+3. Add some Mongoid configuration to `config/application.rb`. This is used by stand-alone programs
+like "rails console" to be able to load the Mongoid environment with fewer steps. This also
+configures which ORM your scaffold commands use by default. Adding the mongoid gem had the
+impact of making Mongoid the default ORM. The lines below show how we can set it back to ether
 ActiveRecord or Mongoid and how to use the `--orm` flag to identify the mapping on a per-model
-type basis. However, we will not be generating any ActiveRecord or Mongoid model classes as a 
-part of this assignment. We will only be using Mongoid during this assignment to get 
+type basis. However, we will not be generating any ActiveRecord or Mongoid model classes as a
+part of this assignment. We will only be using Mongoid during this assignment to get
 connections to MongoDB and we might as well show a complete configuration while we are here.
 
     ```ruby
@@ -212,7 +208,7 @@ connections to MongoDB and we might as well show a complete configuration while 
         Mongoid.load!('./config/mongoid.yml')
 
         #which default ORM are we using with scaffold
-        #add  --orm mongoid, or active_record 
+        #add  --orm mongoid, or active_record
         #    to rails generate cmd line to be specific
         #config.generators {|g| g.orm :active_record}
         config.generators {|g| g.orm :mongoid}
@@ -231,15 +227,15 @@ connections to MongoDB and we might as well show a complete configuration while 
 
 ### Obtain Database Connection from Model Class
 
-In this section you create a model class and add some convenience methods to 
+In this section you create a model class and add some convenience methods to
 get a connection to the MongoDB server and document collection.
 
-1. Create a model class by hand called `Racer` in the `app/models` directory. 
+1. Create a model class by hand called `Racer` in the `app/models` directory.
 This class must have:
-    * a class method called `mongo_client` that returns a MongoDB client 
-    configured to communicate to the default database specified in the 
+    * a class method called `mongo_client` that returns a MongoDB client
+    configured to communicate to the default database specified in the
     `config/mongoid.yml` file.
-    * a class method called `collection` that returns the `racers` 
+    * a class method called `collection` that returns the `racers`
     MongoDB collection holding the `Racer` documents.
 
     Hint: You can use code like the following to obtain a connection
@@ -255,23 +251,23 @@ This class must have:
 
     ```ruby
     > Racer.mongo_client.database.name
-     => "raceday_development" 
+     => "raceday_development"
     > Racer.collection.name
-     => "racers" 
+     => "racers"
     ```
 
     Note that the Rails convention is to have CamelCase classnames
-    and snake_case filenames. Some platforms will allow you to use 
-    CamelCase, but the grader cannot recognize any class that does 
+    and snake_case filenames. Some platforms will allow you to use
+    CamelCase, but the grader cannot recognize any class that does
     not use snake_case.
 
     ```shell
     $ rspec spec/connection_spec.rb -e rq01
-    ``` 
+    ```
 
 2. Use the `rails console` and the `Racer` class and methods added above
 to ingest data into the collection. The `; nil` is shown below is to keep the
-default logger level of the rails console from printing the evaluation of 
+default logger level of the rails console from printing the evaluation of
 the large collection results after each command.
 
     ```ruby
@@ -287,12 +283,12 @@ the large collection results after each command.
 
     ```ruby
     > Racer.collection.count
-     => 1000 
+     => 1000
     ```
 
     ```shell
     $ rspec spec/connection_spec.rb -e rq02
-    ``` 
+    ```
 
 ### CRUD Model Methods
 In this section you will apply your knowledge of MongoDB Ruby Driver commands
@@ -313,16 +309,16 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
     Hint:
 
     ```ruby
-    def self.all(prototype={...}, sort={...}, skip=0, limit=nil) 
+    def self.all(prototype={...}, sort={...}, skip=0, limit=nil)
       ...
     end
     ```
 
     Use the Rails console to verify and explore your result. Use the `reload!` command
-    after making code changes. 
+    after making code changes.
 
     The following command shows there are 1000 records in the database.
-  
+
     ```ruby
     > reload!
     > pp Racer.all.count; nil
@@ -342,7 +338,7 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
      "secs"=>1464}
     ```
 
-    The following command shows we have the power to find matching documents thru 
+    The following command shows we have the power to find matching documents thru
     a prototype and control the sorting and paging.
 
     ```ruby
@@ -358,7 +354,7 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
 
     ```shell
     $ rspec spec/crud_spec.rb -e rq01
-    ``` 
+    ```
 
 2. Add attributes to the `Racer` class that allow one to set/get each of the following properties:
     * id
@@ -376,9 +372,9 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
       attr_accessor :id, :number, :first_name, :last_name, :gender, :group, :secs
     ```
 
-    Note that `id` is a special primary key property within ActiveModel and must exist to 
+    Note that `id` is a special primary key property within ActiveModel and must exist to
     work correctly with Rails scaffold. We will map that property to the string value of the
-    MongoDB `_id` property. The `_id` properties ingested are in 
+    MongoDB `_id` property. The `_id` properties ingested are in
     `BSON::ObjectId` form and can be converted to/from string using:
 
     ```ruby
@@ -386,28 +382,28 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
     :_id=>BSON::ObjectId.from_string(@id))
     ```
 
-    Note that the BSON::ObjectId is a globally unique value and has a 
-    [specific format and length](https://docs.mongodb.org/manual/reference/object-id/). 
+    Note that the BSON::ObjectId is a globally unique value and has a
+    [specific format and length](https://docs.mongodb.org/manual/reference/object-id/).
     The `from_string` method will throw an exception if passed a string with an incorrect format/length.
     If we wanted to use an arbitrary, unique value -- we would not use the BSON::ObjectId
     type for our MongoDB primary key.
 
     ```shell
     $ rspec spec/crud_spec.rb -e rq02
-    ``` 
+    ```
 
-3. Add an initializer that can set the properties of the class using the keys from a 
+3. Add an initializer that can set the properties of the class using the keys from a
 `racers` document. It must:
     * accept a hash of properties
     * assign instance attributes to the values from the hash
-    * for the `id` property, this method must test whether the hash is coming from 
-    a web page `[:id]` or from a MongoDB query `[:_id]` and assign the value to 
+    * for the `id` property, this method must test whether the hash is coming from
+    a web page `[:id]` or from a MongoDB query `[:_id]` and assign the value to
     whichever is non-nil.
 
     Hint:
 
     ```ruby
-    def initialize(params={}) 
+    def initialize(params={})
       @id=params[:_id].nil? ? params[:id] : params[:_id].to_s
       @number=params[:number].to_i
       @first_name=params[:first_name]
@@ -420,7 +416,7 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
 
     ```shell
     $ rspec spec/crud_spec.rb -e rq03
-    ``` 
+    ```
 
 4. Create a class method in the `Racer` class called `find`. This method must:
     * accept a single `id` parameter that is either a string or BSON::ObjectId
@@ -437,23 +433,23 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
     end
     ```
 
-    Use the `rails console` to test and explore your changes. Note that return type 
+    Use the `rails console` to test and explore your changes. Note that return type
     is now an instance of a `Racer` class or nil if not found. The last example has
     a valid BSON string but an unknown value.
 
     ```ruby
     > reload!
     > Racer.all.projection(first_name:1, last_name:1).first
-     => {"_id"=>BSON::ObjectId('563daabbe301d0978b000000'), "first_name"=>"SHAUN", "last_name"=>"JOHNSON"} 
+     => {"_id"=>BSON::ObjectId('563daabbe301d0978b000000'), "first_name"=>"SHAUN", "last_name"=>"JOHNSON"}
     > Racer.find "563daabbe301d0978b000000"
      => #<Racer:0x000000072c0680 @id="563daabbe301d0978b000000", @number=0, @first_name="SHAUN", @last_name="JOHNSON", ...
     > Racer.find "563daabbe301d0978b000999"
-     => nil 
+     => nil
     ```
 
     ```shell
     $ rspec spec/crud_spec.rb -e rq04
-    ``` 
+    ```
 
 5. Create an instance method in the `Racer` class called `save`. This method must:
     * take no arguments
@@ -469,20 +465,20 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
     end
     ```
 
-    Use the `rails console` to test and explore your changes. 
+    Use the `rails console` to test and explore your changes.
 
     ```ruby
     > racer=Racer.new(number:1001, first_name:"cat", last_name:"inhat", group:"masters", secs:1000)
-     => #<Racer:0x00000007305a78 @id=nil, @number=1001, @first_name="cat", @last_name="inhat", @gender=nil, @group="masters", @secs=1000> 
+     => #<Racer:0x00000007305a78 @id=nil, @number=1001, @first_name="cat", @last_name="inhat", @gender=nil, @group="masters", @secs=1000>
     > racer.save
-     => "563e24c2e301d0978b0003ea" 
+     => "563e24c2e301d0978b0003ea"
     > Racer.find "563e24c2e301d0978b0003ea"
-     => #<Racer:0x0000000731ab08 @id="563e24c2e301d0978b0003ea", @number=1001, @first_name="cat", @last_name="inhat", @gender=nil, @group="masters", @secs=1000> 
+     => #<Racer:0x0000000731ab08 @id="563e24c2e301d0978b0003ea", @number=1001, @first_name="cat", @last_name="inhat", @gender=nil, @group="masters", @secs=1000>
     ```
 
     ```shell
     $ rspec spec/crud_spec.rb -e rq05
-    ``` 
+    ```
 
 6. Create an instance method in the `Racer` class called `update`. This method must:
     * accept a hash as an input parameter
@@ -493,9 +489,9 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
     Hint:
 
     ```ruby
-    def update(params) 
+    def update(params)
       @number=params[:number].to_i
-      @first_name=params[:first_name] 
+      @first_name=params[:first_name]
       @last_name=params[:last_name]  
       @secs=params[:secs].to_i
                 ...
@@ -505,13 +501,13 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
     end
     ```
 
-    Use the `rails console` to test and explore your changes. 
+    Use the `rails console` to test and explore your changes.
 
     ```ruby
     > doc=Racer.all({first_name:"cat",last_name:"inhat"}).first
     > racer=Racer.find doc[:_id].to_s
     > racer.first_name
-     => "cat" 
+     => "cat"
     > racer.update(first_name:"thing", last_name:"one", group:"15 to 19")
     > pp Racer.all(:_id=>doc[:_id]).first
     {"_id"=>BSON::ObjectId('5663d512e301d0a256000fa3'),
@@ -522,7 +518,7 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
 
     ```shell
     $ rspec spec/crud_spec.rb -e rq06
-    ``` 
+    ```
 
 7. Create an instance method in the `Racer` class called `destroy`. This method must:
     * accept no arguments
@@ -538,21 +534,21 @@ yet -- we can implement and test quite a lot with the "rails console" and unit t
     end
     ```
 
-    Use the `rails console` to test and explore your changes. 
+    Use the `rails console` to test and explore your changes.
 
     ```ruby
     > Racer.find('5663d512e301d0a256000fa3').first_name
-     => "thing" 
+     => "thing"
     > Racer.find('5663d512e301d0a256000fa3').destroy
-     => #<Mongo::Operation::Result:57331320 documents=[{"ok"=>1, "n"=>1}]> 
+     => #<Mongo::Operation::Result:57331320 documents=[{"ok"=>1, "n"=>1}]>
     > Racer.find('5663d512e301d0a256000fa3')
-     => nil 
+     => nil
     ```     
 
     ```shell
     $ rspec spec/crud_spec.rb -e rq07
-    ``` 
-    
+    ```
+
 ### Completing ActiveModel Framework
 
 In this section we will transform the `Racer` class into a `Racer` model class by adding
@@ -568,7 +564,7 @@ scaffold.
 
     ```shell
     $ rspec spec/model_spec.rb -e rq01
-    ``` 
+    ```
 2. Add an instance method to the `Racer` class called `persisted?`. This method must:
     * accept no arguments
     * return true when @id is not `nil`. Remember -- we assigned @id during save
@@ -588,9 +584,9 @@ scaffold.
 
     ```ruby
     > id=Racer.all({first_name:"thing", last_name:"one"}).first[:_id].to_s
-     => "563e24c2e301d0978b0003ea" 
+     => "563e24c2e301d0978b0003ea"
     > Racer.find(id).persisted?
-     => true 
+     => true
     ```
 
     ```shell
@@ -624,7 +620,7 @@ In this section you will make the model class accessible to the browser by addin
 and view through Rails scaffold. You carefully implemented the methods and detaisl of the `Racer`
 model class so that it should nearly immediately work with these generated classes.
 
-1. Generate a controller and view for the `Racer` model using the 
+1. Generate a controller and view for the `Racer` model using the
 `scaffold_controller` command. Identify the fields for the model object
 so the generator creates fields to display and manage them.
 
@@ -643,7 +639,7 @@ so the generator creates fields to display and manage them.
       root to: 'racers#index'
     ```
 
-    Use the `rake routes` to test and explore your changes. 
+    Use the `rake routes` to test and explore your changes.
 
     ```shell
     $ rake routes
@@ -676,10 +672,10 @@ so the generator creates fields to display and manage them.
     ```
 
 3. Add an instance method to the generated `RacersHelper` class called `toRacer`.
-This class was generated by the `scaffold_controller` command and placed in 
+This class was generated by the `scaffold_controller` command and placed in
 `app/helpers/racers_helper.rb`. The new method must:
     * accept a single input argument
-    * if the type of the input argument is a `Racer`, simply return the instance 
+    * if the type of the input argument is a `Racer`, simply return the instance
     unmodified. Else attempt to instantiate a Racer from the input argument
     and return the result.
 
@@ -701,7 +697,7 @@ This class was generated by the `scaffold_controller` command and placed in
     <% @racers.each do |racer| racer=toRacer(racer) %>
     ```
 
-    Fix the JSON marshalling in `app/views/racers/index.json.jbuilder` 
+    Fix the JSON marshalling in `app/views/racers/index.json.jbuilder`
     by adding the call to the helper method as well
 
     Hint:
@@ -714,8 +710,8 @@ This class was generated by the `scaffold_controller` command and placed in
     end
     ```
 
-4. Remove the confirmation dialogs from your Destroy link since we are not using a webdriver 
-that supports javascript for this assignment. Inside the index.html.erb 
+4. Remove the confirmation dialogs from your Destroy link since we are not using a webdriver
+that supports javascript for this assignment. Inside the index.html.erb
 file you will need to change the destroy link to eliminate the confirmation dialog:
 
     ```html
@@ -732,10 +728,10 @@ a test drive.
     ```
 
 ### Adding Pagination
-Although we are not using a large dataset, we are still using an amount of 
-records sorted by an non-indexed property and can notice some delay in 
-accessing a page with all of our results. Add `will_paginate` support 
-for paging. The UI portion will be handled automatically but you 
+Although we are not using a large dataset, we are still using an amount of
+records sorted by an non-indexed property and can notice some delay in
+accessing a page with all of our results. Add `will_paginate` support
+for paging. The UI portion will be handled automatically but you
 must add query support for the new paginated call. Luckily you already
 have most of that implemented.
 
@@ -744,11 +740,11 @@ have most of that implemented.
   * accept a hash as input parameters
   * extract the `:page` property from that hash, convert to an integer,
   and default to the value of `1` if not set.
-  * extract the `:per_page` property from that hash, convert to an 
+  * extract the `:per_page` property from that hash, convert to an
   integer, and default to the value of `30` if not set
   * find all racers sorted by `number` assending.
   * limit the results to page and limit values.
-  * convert each document hash to an instance of a `Racer` class 
+  * convert each document hash to an instance of a `Racer` class
   * Return a `WillPaginate::Collection` with the `page`, `limit`, and `total`
   values filled in -- as well as the page worth of data.
 
@@ -772,28 +768,28 @@ have most of that implemented.
     end
     ```
 
-    Use the `rails console` to test and explore your changes. 
+    Use the `rails console` to test and explore your changes.
 
     ```ruby
     > reload!
     > page=Racer.paginate(page:1)
     > page.current_page
-     => page 1 
+     => page 1
     > page.per_page
-     => 30 
+     => 30
     > page.total_pages
-     => 34 
+     => 34
     > page.count
      => 30
     > page.total_entries
-     => 1001 
+     => 1001
     ```
 
     ```shell
     $ rspec spec/paginate_spec.rb -e rq01
     ```
 2. Update the `racers#index` method to use the new `Racer.paginate` method
-instead of the scaffold `Racer.all` method. This method is located in 
+instead of the scaffold `Racer.all` method. This method is located in
 `app/controllers/racers_controller.rb`
 
     Hint:
@@ -805,7 +801,7 @@ instead of the scaffold `Racer.all` method. This method is located in
     end
     ```
 
-    Use the browser to test and explore your changes. 
+    Use the browser to test and explore your changes.
 
     ```url
     http://localhost:3000/racers?page=1&per_page=5
@@ -815,8 +811,8 @@ instead of the scaffold `Racer.all` method. This method is located in
     $ rspec spec/paginate_spec.rb -e rq02
     ```
 
-3. Add the `will_paginate` command to the `racers#index` view page in 
-`app/views/racers/index.html.erb`. 
+3. Add the `will_paginate` command to the `racers#index` view page in
+`app/views/racers/index.html.erb`.
 
     Hint:
 
@@ -834,7 +830,7 @@ instead of the scaffold `Racer.all` method. This method is located in
 
     User the browser to test and navigate the pages of racers. Note that
     will_paginate does not autotically add anything for page_size.
-    
+
     ```shell
     $ rspec spec/paginate_spec.rb -e rq03
     ```
@@ -843,7 +839,7 @@ instead of the scaffold `Racer.all` method. This method is located in
 
 (Ungraded/Optional) In this section you will optionally configure your
 solution for a Heroku deployment. Feel free to submit the assignment
-for grading and continue on with this optional work. You should be able to 
+for grading and continue on with this optional work. You should be able to
 find details about the changes required for deployment within the `Zips`
 example and in the lecture on deployment.
 
@@ -858,17 +854,17 @@ Name your application `raceday#####` where `#####` is a random, unassigned numbe
 
     * updating the `config/mongoid.yml` file with a deployment profile
     * updating the `Gemfile` to satisfy `Heroku` RDBMS constraints for ActiveRecord.
-    
+
 5. Deploy the application to Heroku and access via the web.
 
 ## Self Grading/Feedback
 
-Some unit tests have been provided in the bootstrap files and provide 
-examples of tests the grader will be evaluating for when you submit 
+Some unit tests have been provided in the bootstrap files and provide
+examples of tests the grader will be evaluating for when you submit
 your solution. They must be run from the project root directory.
 
 ```shell
-$ rspec 
+$ rspec
 ...
 (N) examples, 0 failures
 ```
@@ -910,4 +906,3 @@ and will perform a test with different query terms.
 ```
 
 #### Last Updated: 2016-03-08
->>>>>>> initial fresh project
